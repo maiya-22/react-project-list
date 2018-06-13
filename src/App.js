@@ -31,10 +31,11 @@ class App extends Component {
         category: "web design"
       }
     ];
-    let projects =
-      JSON.parse(localStorage.getItem("projects")).length > 0
-        ? JSON.parse(localStorage.getItem("projects"))
-        : starterProjects;
+    let projects = starterProjects;
+    let storedProjects = JSON.parse(localStorage.getItem("projects"));
+    if (storedProjects) {
+      projects = storedProjects;
+    }
     this.setState(
       {
         projects
