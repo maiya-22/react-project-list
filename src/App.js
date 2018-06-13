@@ -10,46 +10,33 @@ class App extends Component {
       projects: []
     };
   }
-  // starter projects:
   componentWillMount() {
-    let projects = JSON.parse(localStorage.getItem("projects"));
-    this.setState({
-      projects
-    });
-    // uncomment this part and run once to seed local storage:
-    // this.setState(
-    //   {
-    //     projects: [
-    //       {
-    //         title: "programming journal",
-    //         category: "web design"
-    //       },
-    //       {
-    //         title: "music app",
-    //         category: "web design"
-    //       },
-    //       {
-    //         title: "secret project",
-    //         category: "web design"
-    //       }
-    //     ]
-    //   },
-    //   function() {
-    //     localStorage.setItem("projects", JSON.stringify(this.state.projects));
-    //     if (!localStorage.projects) {
-    //       console.log("no projects in local storage");
-    //       // localStorage.setItem("projects", JSON.stringify(this.state.projects));
-    //       // localStorage.setItem("projects", "hello");
-    //     } else {
-    //       // console.log(JSON.stringify(this.state.projects));
-    //       // localStorage.setItem("projects", "empty");
-    //       console.log(
-    //         "projects in local storage: ",
-    //         localStorage.getItem("projects")
-    //       );
-    //     }
-    //   }
-    // );
+    let starterProjects = [
+      {
+        title: "programming journal",
+        category: "web design"
+      },
+      {
+        title: "music app",
+        category: "web design"
+      },
+      {
+        title: "secret project",
+        category: "web design"
+      }
+    ];
+    let projects =
+      JSON.parse(localStorage.getItem("projects")).length > 0
+        ? JSON.parse(localStorage.getItem("projects"))
+        : starterProjects;
+    this.setState(
+      {
+        projects
+      },
+      function() {
+        localStorage.setItem("projects", JSON.stringify(this.state.projects));
+      }
+    );
   }
 
   handleAddProject = function(project) {
@@ -70,7 +57,7 @@ class App extends Component {
         projects: []
       },
       function() {
-        localStorage.setItem("projects", "empty");
+        localStorage.setItem("projects", "[]");
       }
     );
   };
