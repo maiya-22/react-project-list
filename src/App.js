@@ -6,12 +6,10 @@ import "./App.css";
 class App extends Component {
   constructor() {
     super();
-
     this.state = {
       projects: []
     };
   }
-
   // starter projects:
   componentWillMount() {
     let projects = JSON.parse(localStorage.getItem("projects"));
@@ -55,7 +53,6 @@ class App extends Component {
   }
 
   handleAddProject = function(project) {
-    // console.log(project);
     this.setState(
       {
         projects: [...this.state.projects, project]
