@@ -3,12 +3,14 @@ import Projects from "./Components/Projects.js";
 import AddProject from "./Components/AddProject.js";
 import "./App.css";
 import uuid from "uuid";
+import axios from "axios";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      projects: []
+      projects: [],
+      todos: []
     };
   }
   componentWillMount() {
@@ -41,6 +43,17 @@ class App extends Component {
         localStorage.setItem("projects", JSON.stringify(this.state.projects));
       }
     );
+  }
+
+  componentDidMount() {
+    axios.get("https://jsonplaceholder.typicode.com/todos").then(data => {
+      // data.data.forEach(data => {
+      //   console.log(data.title);
+      // });
+      this.setState({ todos: data.data }, function() {
+        console.log("this.state.todos:", this.state.todos);
+      });
+    });
   }
 
   handleAddProject = function(project) {
@@ -76,13 +89,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h3>list of projects</h3>
         <AddProject addProject={this.handleAddProject.bind(this)} />
+        <button onClick={this.clearProjects.bind(this)}>clear projects</button>
+        <h3>list of projects</h3>
         <Projects
           projects={this.state.projects}
           onDelete={this.handleDeleteProject.bind(this)}
         />
-        <button onClick={this.clearProjects.bind(this)}>clear projects</button>
       </div>
     );
   }
